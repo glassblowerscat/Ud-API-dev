@@ -1,18 +1,14 @@
 {
-  "name": "helloapi",
+  "name": "js-basics",
   "version": "1.0.0",
-  "description": "Hello World API code-along project",
-  "main": "server.js",
+  "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Jack Davis <jack@devslopes.com>",
+  "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.18.3",
-    "express": "^4.16.4",
-    "mongoose": "^5.3.4",
-    "nodeman": "^1.1.2",
-    "nodemon": "^1.18.4"
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015-node6": "^0.4.0"
   }
 }
