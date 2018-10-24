@@ -3,7 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "babel-node ./requireAndImport.js"
+  },
+  "babel": {
+    "presets": [
+      "es2015-node6"
+    ]
   },
   "author": "",
   "license": "ISC",
