@@ -15,8 +15,6 @@ app.use(bodyParser.json({
     limit: config.bodyLimit
 }));
 
-// passport config
-
 // api routes v1
 app.use('/v1', routes);
 

@@ -3,20 +3,22 @@ import { Router } from 'express';
 import FoodTruck from '../model/foodtruck';
 import Review from '../model/review';
 
+import { authenticate } from '../middleware/authMiddleware';
+
 export default ({ config, db }) => {
     let api = Router();
 
     // CRUD - Create Read Update Delete
 
     // '/v1/foodtruck/add' - Create
-    api.post('/add', (req, res) => {
-        let newFoodTruck = new FoodTruck();
-        newFoodTruck.name = req.body.name;
-        newFoodTruck.foodtype = req.body.foodtype;
-        newFoodTruck.avgcost = req.body.avgcost;
-        newFoodTruck.geometry.coordinates = req.body.geometry.coordinates;
+    api.post('/add', authenticate, (req, res) => {
+        let foodtruck = new FoodTruck();
+        foodtruck.name = req.body.name;
+        foodtruck.foodtype = req.body.foodtype;
+        foodtruck.avgcost = req.body.avgcost;
+        foodtruck.geometry.coordinates = req.body.geometry.coordinates;
 
-        newFoodTruck.save(err => {
+        foodtruck.save(err => {
             if (err) {
                 res.send(err);
             }
@@ -45,12 +47,15 @@ export default ({ config, db }) => {
     });
 
     // '/v1/foodtruck/:id - Update
-    api.put('/:id', (req, res) => {
+    api.put('/:id', authenticate, (req, res) => {
         FoodTruck.findById(req.params.id, (err, foodtruck) => {
             if (err) {
                 res.send(err);
             }
             foodtruck.name = req.body.name;
+            foodtruck.foodtype = req.body.foodtype;
+            foodtruck.avgcost = req.body.avgcost;
+            foodtruck.geometry.coordinates = req.body.geometry.coordinates;
             foodtruck.save(err => {
                 if (err) {
                     res.send(err);
@@ -61,7 +66,7 @@ export default ({ config, db }) => {
     });
 
     // '/v1/foodtruck/:id - Delete
-    api.delete('/:id', (req, res) => {
+    api.delete('/:id', authenticate, (req, res) => {
         FoodTruck.remove({
             _id: req.params.id
         }, (err, foodtruck) => {
@@ -74,7 +79,7 @@ export default ({ config, db }) => {
 
     // add review for a specific foodtruck id
     // '/v1/foodtruck/reviews/add/:id'
-    api.post('/reviews/add/:id', (req, res) => {
+    api.post('/reviews/add/:id', authenticate, (req, res) => {
         FoodTruck.findById(req.params.id, (err, foodtruck) => {
             if (err) {
                 res.send(err);
